@@ -1,32 +1,123 @@
-# Prerequisites
-*.d
+#include <fstream>
+#include <iostream>
+#include <string>
+using namespace std;
+/*
+*	Original Source Code for the creation of the initial ZipBomb File
+*	Please be careful using it as it is CPU intensive
+*	Please use this responsibly, the creator of this program is not
+*	responsible for any malicious or otherwise done with this program.
+*	Please follow the steps on creating a zip bomb:
+*	- Compress the output file
+*	- Copy and paste the compressed output file multiple times
+*	- Compress the compressed files together
+*	- Copy and paste the compressed files multiple times
+*	- Compress those compressed files
+*	- Rinse and Repeat until Satisfied
+*	By: Matthew H;
+*/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+void customOutput(string);
+void predefinedOutput(string);
 
-# Precompiled Headers
-*.gch
-*.pch
+int main()
+{
+	int userOption = 0, usrInputOption = 0;
+	long long i = 0, zeroCount = 0;
+	string nameOfFile, officialname;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+	cout << "What would you like to name the outputfile (No spaces No file extension): ";	//This block prompts the user to pick a name for the output file
+	cin >> nameOfFile;
+	system("cls");
 
-# Fortran module files
-*.mod
-*.smod
+	officialname = nameOfFile + ".txt";	//This line adds the file extension .txt on the end of the users custom filename
+	ofstream out(officialname);		//This line creates the users custom txt file
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+	cout << "Would you like to use a predefined zero count or Custom zero count for the file " + officialname + ".\n";
+		cout << "Please Enter the number of your choice: \n";
+		cout << "1 - Custom\n2 - Predefined\nEnter the response: ";	//This sentence gives the user of either running a custom or predefined zero printout
+		cin >> usrInputOption;
+		system("cls");
 
-# Executables
-*.exe
-*.out
-*.app
+		switch (usrInputOption) {
+			case 1:
+				customOutput(officialname);
+				break;
+			case 2:
+				predefinedOutput(officialname);
+				break;
+			default:
+				break;
+		}
+
+		out.close();		//This line closes the output file.
+		return 0;
+}
+
+
+void customOutput(string officialname) {
+	long long zeroCount = 0, i = 0;
+	ofstream out(officialname);		//This line creates the users custom txt file
+	
+	cout << "How many zeros would you like to input into the file " + officialname +": ";	//This is the prompt the user sees
+	cin >> zeroCount;
+	system("cls");
+
+	if (zeroCount > 1999999999999999999) {		//This if condition changes the users input if one has entered a number beyond the limit
+		zeroCount = 1999999999999999999;		//If the user has input a number beyond the limit then the number will be changed to the max number allowed
+		cout << "Unfortunately, that number is too large for this program. I have changed the output to 1999999999999999999.";
+		for (i = 0; i <= zeroCount; i++) {	//This block of code prints out the zeros into the out file
+			out << 0;
+			cout << i << " ";
+		}
+	}
+	else if (zeroCount <= 0) {		//This if condition changes the users zeroCount input to 1 due to the fact the input the user put is negative
+		zeroCount = 1;
+		cout << "Due to the number from your input. I have set the output to 1.";
+		for (i = 0; i <= zeroCount; i++) {	//This block of code prints out the zeros into the out file
+			out << 0;
+			cout << i << " ";
+		}
+	}
+	else {				//This runs when the user has the correct input and zeroCount will send the proper amount of zeros to the output file
+		for (i = 0; i <= zeroCount; i++) {	//This block of code prints out the zeros into the out file
+			out << 0;
+			cout << i << " ";
+		}
+	}
+}
+
+void predefinedOutput(string officialname) {
+	long long zeroCount = 0, i = 0;
+	ofstream out(officialname);		//This line creates the users custom txt file
+	int userOption = 0;
+
+		cout << "What size base file do you want." << endl;		//This block is a display menu for the user to select the size of the initial txt file 
+		cout << "Please Enter the number of your choice: \n";
+		cout << "1 - Smallest Size(approx - 200K zeros) \n2 - Medium Size (approx - 200B zeros) \n3 - Largest Size(long long value)\nEnter the response: ";
+		cin >> userOption;
+		system("cls");
+
+		switch (userOption) {
+			case 1:
+				for (i = 0; i <= 199999; i++) {	//This block of code prints out the zeros into the out file
+					out << 0;
+					cout << i << " ";
+				}
+				break;
+			case 2:
+				for (i = 0; i <= 199999999999; i++) {	//This block of code prints out the zeros into the out file
+					out << 0;
+					cout << i << " ";
+				}
+				break;
+			case 3:
+				for (i = 0; i <= 1999999999999999999; i++) {	//This block of code prints out the zeros into the out file
+					out << 0;
+					cout << i << " ";
+				}
+				break;
+			default:
+				break;
+		}
+}
